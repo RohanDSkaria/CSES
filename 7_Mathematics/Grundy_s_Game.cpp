@@ -2,7 +2,7 @@
 using namespace std;
 #define IOS ios::sync_with_stdio(0);cin.tie(nullptr);cout.tie(nullptr);
 #define endl '\n'
-// #define int long long
+#define int long long
 #define pb(a) push_back(a)
 #define v vector
 #define vi v<int>
@@ -18,7 +18,7 @@ void solve(){
 }
 int32_t main(){
     IOS int t=1;
-    // cin>>t;
+    cin>>t;
     while(t--) solve();
 }
 /*
