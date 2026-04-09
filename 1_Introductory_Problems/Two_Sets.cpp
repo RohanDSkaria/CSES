@@ -1,59 +1,39 @@
-#include <iostream>
-#include <vector>
+#include <bits/stdc++.h>
 using namespace std;
-int main(){
-    int n; cin>>n;
-    if((n*(n+1)/2)%2==0) cout<<"YES"<<endl;
-    else{
-        cout<<"NO"<<endl;
-        return 0;
+#define IOS ios::sync_with_stdio(0);cin.tie(nullptr);cout.tie(nullptr);
+#define endl '\n'
+#define int long long
+#define v vector
+#define vi v<int>
+#define pb push_back
+#define all(a) a.begin(),a.end()
+#define rall(a) a.rbegin(),a.rend()
+#define deb(...) _print(#__VA_ARGS__, __VA_ARGS__);
+template<typename F,typename S>ostream& operator<<(ostream& os,const pair<F,S>& p){return os<<"{"<<p.first<<","<<p.second<<"}";}
+template<typename F,typename S>istream& operator>>(istream& is,pair<F,S>& p){return is>>p.first>>p.second;}
+template<typename T>istream& operator>>(istream& is, v<T>& v){for(auto&x:v)is>>x;return is;}
+template<typename T>ostream& operator<<(ostream& os, v<T>& v){for(auto&x:v)os<<x<<' ';return os;}
+template<typename T>ostream& operator<<(ostream& os, set<T>& s){for(auto&x:s)os<<x<<' ';return os;}
+template<typename T>ostream& operator<<(ostream& os, v<v<T>>& v){os<<endl;for(auto&i:v)os<<i<<endl;return os;}
+template<typename K,typename V>ostream& operator<<(ostream& os,map<K,V>& m){os<<endl;for(auto&[k,v]:m)os<<k<<" -> "<<v<<endl;return os;}
+template<typename T,typename... Args>void _print(string s,T v,Args... args){size_t c=s.find(',');cout<<s.substr(0,c)<<" = "<<v<<endl;if constexpr(sizeof...(args)>0){_print(s.substr(c+1),args...);}}
+
+void solve(){
+    int n;cin>>n;
+    if((n-1)%4<2){cout<<"NO\n";return;}
+    cout<<"YES\n";
+    vi a,b;
+    for(int i=1,k=n&1; i<=n; i++){
+        if(k==(i&1)) swap(a,b);
+        a.pb(i);
     }
-    if(n==2){
-        cout<<1<<endl<<1<<endl<<1<<endl<<1<<endl;
-        return 0;
-    }
-    vector<int> A;
-    vector<int> B;
-    if(n%2==0){
-        int k=1;
-        int j=1;
-        while(A.size()<=(n/2)-2){
-            A.push_back(k);
-            j=k+3;
-            A.push_back(j);
-            k=j+1;
-        }
-        k=2;
-        j=1;
-        while(B.size()<=(n/2)-2){
-            B.push_back(k);
-            j=k+1;
-            B.push_back(j);
-            k=j+3;
-        }
-        cout<<A.size()<<endl;
-        for(int i:A) cout<<i<<" ";
-        cout<<endl;
-        cout<<B.size()<<endl;
-        for(int i:B) cout<<i<<" ";
-    }
-    else{
-        for(int i=1; i<n; i++){
-            if(i%2!=0 && (i/2)%2==0){
-                A.push_back(i);
-                A.push_back(i+1);
-            }
-            else if(i%2!=0 && (i/2)%2!=0){
-                B.push_back(i);
-                B.push_back(i+1);
-            }
-        }
-        B.push_back(n);
-        cout<<A.size()<<endl;
-        for(int i:A) cout<<i<<" ";
-        cout<<endl;
-        cout<<B.size()<<endl;
-        for(int i:B) cout<<i<<" ";
-    }
-    return 0;
+    cout<<a.size()<<endl<<a<<endl<<b.size()<<endl<<b;
 }
+int32_t main(){
+    IOS int t=1;
+    // cin>>t;
+    while(t--) solve();
+}
+/*
+
+*/

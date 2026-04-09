@@ -1,48 +1,36 @@
 #include <bits/stdc++.h>
-#define endl '\n'
-#define ll long long
 using namespace std;
-// ll nCr(int n, int r){
-// 	ll ans=1;
-// 	for(int i=1; i<=r; i++){
-// 		ans *= n-i+1;
-// 		ans/=i;
-// 	}
-// 	return ans;
-// }
-const int m=1000000007;
-map<ll,ll> dp;
-ll f(ll n){
+#define IOS ios::sync_with_stdio(0);cin.tie(nullptr);cout.tie(nullptr);
+#define endl '\n'
+#define int long long
+#define pb(a) push_back(a)
+#define v vector
+#define vi v<int>
+#define bl cout<<endl;
+#define all(a) a.begin(),a.end()
+#define deb(x) cout<<#x<<" = "<<x<<endl;
+template<typename T>istream& operator>>(istream& is, v<T>& v){for(auto& x : v)is >> x;return is;}
+template<typename T>ostream& operator<<(ostream& os, v<T>& v){for(auto& x : v)os << x << ' ';return os;}
+
+map<int,int> dp;
+const int m = 1e9+7;
+int f(int n){
 	if(dp.count(n)) return dp[n];
-	ll k=n/2;
-	if(n&1) return dp[n] = (f(k)*f(k+1) + f(k-1)*f(k))%m;
-	else return dp[n] = (f(k)*f(k) + f(k-1)*f(k-1))%m;
+	int k=n/2;
+	if(n&1) return dp[n]=(f(k)*(f(k+1)+f(k-1)))%m;
+	int g=f(k),h=f(k-1);
+	return dp[n]=(g*g + h*h)%m;
 }
-int main(){
-    dp[0]=dp[1]=1;
-    ll n; cin>>n;
-    cout<<f(n-1);
+void solve(){
+	int n;cin>>n;
+	dp[0]=dp[1]=1;dp[-1]=0;
+	cout<<f(n-1)<<endl;
+}
+int32_t main(){
+	IOS int t=1;
+	// cin>>t;
+	while(t--) solve();
 }
 /*
-fn = fn-1 + fn-2;
-fn = f
+
 */
-// vector<ll> mat(vector<ll> &A, vector<ll> B){
-//     vector<ll> C(4);
-//     C[0]=((A[0]*B[0])%m+(A[1]*B[2])%m)%m;
-//     C[1]=((A[0]*B[1])%m+(A[1]*B[3])%m)%m;
-//     C[2]=((A[2]*B[0])%m+(A[3]*B[2])%m)%m;
-//     C[3]=((A[2]*B[1])%m+(A[3]*B[3])%m)%m;
-//     return C;
-// }
-// vector<ll> Apow(vector<ll> &A, ll n){
-//     if(n==0) return{1,0,0,1};
-//     vector<ll> B = Apow(A,n/2);
-//     B = mat(B,B);
-//     if(n&1) B = mat(B,{0,1,1,1});
-//     return B;
-// }
-// ll nThFib(ll n){
-//     vector<ll> A={0,1,1,1};
-//     return Apow(A,n)[1];
-// }

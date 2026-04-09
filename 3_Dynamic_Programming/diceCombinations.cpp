@@ -1,58 +1,40 @@
 #include <bits/stdc++.h>
-#define endl '\n'
-#define ll long long
-#define pb(a) push_back(a)
-#define pv(A) for(int i:A) cout<<i
-#define pr(A) for(int i=A.size()-1; i>=0; i--) cout<<A[i]
-#define v vector<int>
-#define vl vector<ll>
-#define vb vector<bool>
-#define bl cout<<endl
 using namespace std;
-int some(v& A){int a=0;for(int i:A){a+=i;} return a;}
-int nCr(int n, int r){if(r>n) return 0;if(n==r) return 1;int ans=1;for(int i=0; i<r; i++){ans*=(n-i);ans/=i+1;}return ans;}
-int m = 1e9+7;
-/*Approach-3*/
-void cnt(int n, vl& dp){
-    for(int i=1; i<=min(n,6); i++) dp[i]=1;
-    for(int i=1; i<=n; i++)
-        for(int j=1; j<min(i,7); j++) dp[i]+=dp[i-j]%m;
-}
-int main(){
+#define IOS ios::sync_with_stdio(0);cin.tie(nullptr);cout.tie(nullptr);
+#define endl '\n'
+#define int long long
+#define v vector
+#define vi v<int>
+#define pb push_back
+#define all(a) a.begin(),a.end()
+#define rall(a) a.rbegin(),a.rend()
+#define deb(...) _print(#__VA_ARGS__, __VA_ARGS__);
+template<typename F,typename S>ostream& operator<<(ostream& os,const pair<F,S>& p){return os<<"{"<<p.first<<","<<p.second<<"}";}
+template<typename F,typename S>istream& operator>>(istream& is,pair<F,S>& p){return is>>p.first>>p.second;}
+template<typename T>istream& operator>>(istream& is, v<T>& v){for(auto&x:v)is>>x;return is;}
+template<typename T>ostream& operator<<(ostream& os, v<T>& v){for(auto&x:v)os<<x<<' ';return os;}
+template<typename T>ostream& operator<<(ostream& os, set<T>& s){for(auto&x:s)os<<x<<' ';return os;}
+template<typename T>ostream& operator<<(ostream& os, v<v<T>>& v){os<<endl;for(auto&i:v)os<<i<<endl;return os;}
+template<typename K,typename V>ostream& operator<<(ostream& os,map<K,V>& m){os<<endl;for(auto&[k,v]:m)os<<k<<" -> "<<v<<endl;return os;}
+template<typename T,typename... Args>void _print(string s,T v,Args... args){size_t c=s.find(',');cout<<s.substr(0,c)<<" = "<<v<<endl;if constexpr(sizeof...(args)>0){_print(s.substr(c+1),args...);}}
+
+void solve(){
     int n;cin>>n;
-    vl dp(n+1);
+    const int mod=1e9+7;
+    vi dp(n+1);
     dp[0]=1;
-    cnt(n,dp);
-    cout<<dp[n]%m;
-}
-/*Approach-1:
-ll cnt(int n, vl& dp){
-    if(n<0) return 0;
-    if(dp[n]!=0) return dp[n];
-    for(int i=1; i<7; i++) dp[n] = (dp[n] + cnt(n-i,dp))%m;
-    return dp[n];
-}
-int main(){
-    int n;cin>>n;
-    vl dp(n+1,0);
-    dp[0]=1;
-    cout<<cnt(n,dp);
-}
-*/
-/*Approach-2:
-void cnt(int n, vl& dp){
     for(int i=1; i<=n; i++){
-        ll sum=0;
-        for(int j=1; j<7; j++)
-            if(i-j>=0) sum+=dp[i-j]%m;
-        dp[i]=sum%m;
+        for(int j=1; j<=min(i,6ll); j++){
+            dp[i]=(dp[i]+dp[i-j])%mod;
+        }
     }
-}
-int main(){
-    int n;cin>>n;
-    vl dp(n+1);
-    dp[0]=1;
-    cnt(n,dp);
     cout<<dp[n];
 }
+int32_t main(){
+    IOS int t=1;
+    // cin>>t;
+    while(t--) solve();
+}
+/*
+
 */

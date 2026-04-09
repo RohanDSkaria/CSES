@@ -1,56 +1,38 @@
-// https://cses.fi/problemset/task/1640
 #include <bits/stdc++.h>
 using namespace std;
+#define IOS ios::sync_with_stdio(0);cin.tie(nullptr);cout.tie(nullptr);
 #define endl '\n'
-#define IOS ios::sync_with_stdio(false);cin.tie(nullptr);cout.tie(nullptr);
-#define ll long long
-#define pb(a) push_back(a)
+#define int long long
 #define v vector
 #define vi v<int>
-#define vll v<ll>
-#define vb v<bool>
-#define vs v<string>
-#define vc v<char>
-#define vvi v<vi>
-#define vvll v<vll>
-#define vvc v<vc>
-#define bl cout<<endl;
+#define pb push_back
 #define all(a) a.begin(),a.end()
 #define rall(a) a.rbegin(),a.rend()
-#define deb(x) cout << #x << " : " << x << endl;
-#define pii pair<int,int>
-#define pll pair<ll,ll>
-#define vpii v<pii>
-#define vpll v<pll>
-#define fi first
-#define se second
-#define um unordered_map
-#define us unordered_set
-#define usi us<int>
-#define usll us<ll>
-int nCr(int n, int r){if(r>n) return 0;if(n==r) return 1;int ans=1;for(int i=0; i<r; i++){ans*=(n-i);ans/=(i+1);}return ans;}
-vb sieve(int n){vb A(n+1,1);for(int i=2; i*i<=n; i++){if(A[i]) for(int j=i*i; j<=n; j+=i) A[j]=0;}return A;}
-map<ll,ll> dp;
-ll f(ll n){if(dp.count(n)) return dp[n];ll k=n/2;if(n&1) return dp[n] = (f(k)*f(k+1) + f(k-1)*f(k));else return dp[n] = (f(k)*f(k) + f(k-1)*f(k-1));}
-ll gcd(auto a, auto b){return b?gcd(b,a%b):a;}
-ll lcm(auto a, auto b){return a/gcd(a,b)*b;}
-template<typename T>istream& operator>>(istream& is, v<T>& v){for(auto& x : v)is >> x;return is;}
-template<typename T>ostream& operator<<(ostream& os, v<T>& v){for(const auto& x : v)os << x << ' ';return os;}
+#define deb(...) _print(#__VA_ARGS__, __VA_ARGS__);
+template<typename F,typename S>ostream& operator<<(ostream& os,const pair<F,S>& p){return os<<"{"<<p.first<<","<<p.second<<"}";}
+template<typename F,typename S>istream& operator>>(istream& is,pair<F,S>& p){return is>>p.first>>p.second;}
+template<typename T>istream& operator>>(istream& is, v<T>& v){for(auto&x:v)is>>x;return is;}
+template<typename T>ostream& operator<<(ostream& os, v<T>& v){for(auto&x:v)os<<x<<' ';return os;}
+template<typename T>ostream& operator<<(ostream& os, set<T>& s){for(auto&x:s)os<<x<<' ';return os;}
+template<typename T>ostream& operator<<(ostream& os, v<v<T>>& v){os<<endl;for(auto&i:v)os<<i<<endl;return os;}
+template<typename K,typename V>ostream& operator<<(ostream& os,map<K,V>& m){os<<endl;for(auto&[k,v]:m)os<<k<<" -> "<<v<<endl;return os;}
+template<typename T,typename... Args>void _print(string s,T v,Args... args){size_t c=s.find(',');cout<<s.substr(0,c)<<" = "<<v<<endl;if constexpr(sizeof...(args)>0){_print(s.substr(c+1),args...);}}
 
 void solve(){
     int n,x;cin>>n>>x;
+    vi a(n);cin>>a;
     map<int,int> m;
     for(int i=0; i<n; i++){
-        int k;cin>>k;
-        if(m.count(x-k)){cout<<i+1<<" "<<m[x-k]<<endl;return;}
-        m[k]=i+1;
+        if(m.count(x-a[i])){
+            cout<<i+1<<" "<<m[x-a[i]];
+            return;
+        }
+        m[a[i]]=i+1;
     }
-    cout<<"IMPOSSIBLE"<<endl;
+    cout<<"IMPOSSIBLE";
 }
-int main(){
-    IOS
-    //dp[0]=dp[1]=1;
-    int t=1;
+int32_t main(){
+    IOS int t=1;
     // cin>>t;
     while(t--) solve();
 }

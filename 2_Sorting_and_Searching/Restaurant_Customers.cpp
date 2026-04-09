@@ -11,14 +11,22 @@ using namespace std;
 #define deb(x) cout<<#x<<" = "<<x<<endl;
 template<typename T>istream& operator>>(istream& is, v<T>& v){for(auto& x : v)is >> x;return is;}
 template<typename T>ostream& operator<<(ostream& os, v<T>& v){for(auto& x : v)os << x << ' ';return os;}
- 
+
 void solve(){
     int n;cin>>n;
-    vi a(n);cin>>a;
-    n--;
-    int ans=a[0];
-    for(int i=n; i; i=n&(i-1)) ans^=a[i];
-    cout<<ans;
+    v<vi> a(n<<1,vi(2));
+    for(int i=0; i<n; i++){
+        int x,y;cin>>x>>y;
+        a[i]={x,1};
+        a[i+n]={y,-1};
+    }
+    sort(all(a));
+    int ans=0,c=0;
+    for(auto &i:a){
+        c+=i[1];
+        ans=max(ans,c);
+    }
+    cout<<ans<<endl;
 }
 int32_t main(){
     IOS int t=1;
@@ -26,5 +34,5 @@ int32_t main(){
     while(t--) solve();
 }
 /*
- 
+
 */
